@@ -68,10 +68,10 @@ main_jaw() {
         up(carriage_fudge_x)
         position("collar-center")
         make_carriage(anchor="collar-center", orient=BACK, spin=90);
-    position("screw-peg-center")
-    lower_jaw(spin=lower_jaw_angle)
-        position("screw-peg-center")
-        lever_arm(anchor="arm-hole-center", spin=lever_arm_angle);
+    // position("screw-peg-center")
+    // lower_jaw(spin=lower_jaw_angle)
+    //     position("screw-peg-center")
+    //     lever_arm(anchor="arm-hole-center", spin=lever_arm_angle);
 }
-translate(abs_lever_arm_joint_displacement)
-linkage_arm(anchor="left-hole", spin=abs_angle_of_linkage_arm);
+// translate(abs_lever_arm_joint_displacement)
+// linkage_arm(anchor="left-hole", spin=abs_angle_of_linkage_arm);
