@@ -16,21 +16,28 @@ echo("n = ", n);
 big = big_ball_diam/pitch;
 small = small_ball_diam/pitch;
 snap_collar_length = 3;
-screw_length = 30 - snap_collar_length;
+screw_channel_len = 22;
+screw_length = screw_channel_len - snap_collar_length;
+neck_collar_len = 5;
 
 snap_collar_diam = 7.5;
 thumb_knob_size = [15,7.5, 10];
 screw_tip_length = 3;
 
 neck_diam = 4.5;
-neck_length = 10.5;
+neck_length = neck_collar_len + 0.5;
 
+discvice_logo_diam = 15;
 
 // linkage arm
 linkage_arm_width = 5;
 linkage_arm_thickness = 2.6;
 linkage_arm_hole_diam = 4.75;
+linkage_arm_length = 15;
 linkage_arm_joint_diam = 8.5;
+
+
+screw_peg_thread_major=7;
 
 // screw flattening
 // flat_dist_from_center = 1.92;
@@ -81,3 +88,30 @@ else
 // // thread calculations not including slip
 // internal_thread_minor_diam = major_d
 
+main_jaw_body_height = 20;
+main_peg_displacement = [-7, -main_jaw_body_height, 0];
+
+lower_jaw_joint_displacement = [1, -13, 0];
+
+lever_arm_main_body_length = 15;
+
+screw_channel_offset = 5;
+main_jaw_neck_collar_center_displacement = [
+    screw_channel_offset+screw_channel_len+neck_collar_len/2,
+    -main_jaw_body_height+5,
+    -overall_thickness/2 + flat_dist_from_center
+];
+
+carriage_size = [15, 10, 7];
+carriage_collar_length = snap_collar_length + 0.1;
+carriage_collar_center_displacement = [
+    (carriage_size[0]-carriage_collar_length)/2,
+    0,
+    -carriage_size[2]/2 + flat_dist_from_center
+];
+
+carriage_screw_peg_center_displacement = [
+    carriage_size[0]/2 - joint_outer_diam/2,
+    -(carriage_size[1]/2 + 1 + joint_outer_diam/2),
+    0
+];

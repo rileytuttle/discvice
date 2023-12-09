@@ -6,9 +6,8 @@ $fn=50;
 
 
 module lower_jaw(anchor=CENTER, spin=0, orient=UP) {
-    joint_displacement = [1, -13, 0];
     anchor_list = [
-        named_anchor("screw-peg-center", joint_displacement),
+        named_anchor("screw-peg-center", lower_jaw_joint_displacement),
     ];
     attachable(anchor=anchor, spin=spin, orient=orient, anchors=anchor_list) {
         xrot(180)
@@ -16,8 +15,8 @@ module lower_jaw(anchor=CENTER, spin=0, orient=UP) {
             // linkage joint
             cyl(d=linkage_arm_joint_diam, l=linkage_arm_thickness) {
                 // joint socket
-                back(-joint_displacement[1])
-                right(joint_displacement[0])
+                back(-lower_jaw_joint_displacement[1])
+                right(lower_jaw_joint_displacement[0])
                 // translate(joint_displacement)
                 cyl(d=joint_outer_diam, l=overall_thickness)
                     force_tag("remove")

@@ -1,9 +1,8 @@
 include <BOSL2/std.scad>
 include <common-dims.scad>
-include <tightening-screw.scad>
-include <screw-peg.scad>
+use <tightening-screw.scad>
+use <screw-peg.scad>
 
-carriage_size = [20, 10, 7];
 joint_offset = 1;
 
 $fn=30;
@@ -15,8 +14,8 @@ $slop=carriage_slop;
 module make_carriage(anchor=CENTER, spin=0, orient=UP) {
     anchor_list = [
         named_anchor("screw-center", [0, 0, -carriage_size[2]/2 + flat_dist_from_center]),
-        named_anchor("collar-center", [(carriage_size[0]-4)/2, 0, -carriage_size[2]/2 + flat_dist_from_center]),
-        named_anchor("screw-peg-center", [carriage_size[0]/2 - joint_outer_diam/2, -(carriage_size[1]/2 + 1 + joint_outer_diam/2), 0]),
+        named_anchor("collar-center", carriage_collar_center_displacement),
+        named_anchor("screw-peg-center", carriage_screw_peg_center_displacement),
     ];
     attachable(anchor=anchor, spin=spin, orient=orient, size=carriage_size, anchors=anchor_list) {
         diff() {
@@ -40,13 +39,14 @@ module make_carriage(anchor=CENTER, spin=0, orient=UP) {
                 tag("remove")
                 position(RIGHT+BOTTOM)
                 up(flat_dist_from_center) {
-                    teardrop(d=8, l=4, anchor=FRONT, spin=90, ang=60, cap_h=4.5);
+                    teardrop(d=snap_collar_diam+collar_fudge, l=carriage_collar_length, anchor=FRONT, spin=90, ang=60, cap_h=4.5);
                 }
                 // remove threads
                 force_tag("remove")
                 position(LEFT+BOTTOM)
                 up(flat_dist_from_center)
-                make_internal_threads(l=carriage_size[0]-4, spin=internal_screw_rotation, anchor=TOP, orient=LEFT);
+                left(pitch)
+                make_internal_threads(l=carriage_size[0]-snap_collar_length+10, spin=internal_screw_rotation, anchor=TOP, orient=LEFT);
                 // remove a smidge on top for clearance
                 tag("remove")
                 position(BACK)
@@ -58,7 +58,7 @@ module make_carriage(anchor=CENTER, spin=0, orient=UP) {
     }
 }
 
-make_carriage() {
+make_carriage(){
 // position("collar-center")
 // make_screw(orient=LEFT, spin=-90, anchor="collar-center");
 }

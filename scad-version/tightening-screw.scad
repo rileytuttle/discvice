@@ -45,7 +45,7 @@ module make_screw(anchor=CENTER, spin=0, orient=UP) {
                                 position(BACK)
                                 force_tag("remove")
                                 back(0.01)
-                                logo_positive(d=7.5, l=0.5, anchor=TOP, orient=BACK, $fn=50, spin=90);
+                                logo_negative(d=7.5, l=0.5, anchor=TOP, orient=BACK, $fn=50, spin=90);
                             }
                         }
             }

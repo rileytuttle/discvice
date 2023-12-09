@@ -3,8 +3,6 @@ include <common-dims.scad>
 
 $fn=30;
 
-linkage_arm_length = 15;
-
 module linkage_arm(anchor=CENTER, spin=0, orient=UP) {
     anchor_list=[
         named_anchor("left-hole", [-linkage_arm_length/2, 0, 0]),

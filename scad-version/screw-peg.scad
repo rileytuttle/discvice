@@ -13,7 +13,6 @@ shaft_length = overall_thickness - thread_length+0.5;
 slot_width=1.25;
 flat_move=3.5;
 thread_rotate = 50;
-screw_peg_thread_major=7;
 screw_peg_thread_pitch=1.75/2;
 
 // function my_thread_profile() =
