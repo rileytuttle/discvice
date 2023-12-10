@@ -29,7 +29,7 @@ module make_screw(anchor=CENTER, spin=0, orient=UP) {
                 generic_threaded_rod(d=outer_diam_threads, l=screw_length, pitch=pitch, profile=my_thread_profile(), spin=screw_rotation, left_handed=true)
                     // tip
                     position(TOP)
-                    cyl(d=inner_diam_threads, l=screw_tip_length, rounding2=1.45, anchor=BOTTOM);
+                    cyl(d=screw_tip_diam, l=screw_tip_length, rounding2=1.45, anchor=BOTTOM);
                 
                 // collar
                 down(screw_length/2)

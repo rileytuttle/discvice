@@ -26,7 +26,7 @@ module main_jaw(anchor=CENTER, spin=0, orient=UP) {
                     back(5)
                     up(flat_dist_from_center)
                     // cyl(d=5, l=5, rounding2=1.5, anchor=BOTTOM, orient=LEFT)
-                    teardrop(d=main_body_tip_hole_diam, l=screw_tip_length+0.5, anchor=FRONT, spin=90, ang=50);
+                    teardrop(d=main_body_tip_hole_diam, l=screw_tip_length+0.5, anchor=FRONT, spin=90, ang=55);
                     // collar pocket
                     position(RIGHT+FRONT+BOTTOM)
                     back(5)
@@ -60,14 +60,14 @@ module main_jaw(anchor=CENTER, spin=0, orient=UP) {
                 force_tag("remove")
                 position(LEFT+BACK+TOP)
                 left(7)
-                fwd(8)
+                fwd(8.5)
                 cyl(d=discvice_logo_diam, l=0.5)
                 position(BOTTOM)
-                d_negative(d=discvice_logo_diam, l=overall_thickness+1, anchor=TOP);
+                d_negative(d=discvice_logo_diam, l=overall_thickness, anchor=TOP);
                 // logo text
                 tag("remove")
                 position(TOP+LEFT)
-                right(1)
+                right(0.8)
                 back(1.75)
                 up(0.01)
                 text3d("iscvice", h=0.5, size=7, anchor=TOP+LEFT);

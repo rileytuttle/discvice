@@ -4,8 +4,11 @@ ball_arc = 180;
 small_ball_diam = 1;
 big_ball_diam = small_ball_diam * 1.5;
 pitch = small_ball_diam+big_ball_diam;
-outer_diam_threads = 7;
+outer_diam_threads = 6.75;
 inner_diam_threads = outer_diam_threads - (small_ball_diam+big_ball_diam);
+// screw_tip_diam = inner_diam_threads;
+screw_tip_diam = 4.75;
+assert(screw_tip_diam >= inner_diam_threads);
 echo("inner diam threads", inner_diam_threads);
 // n = max(3,ceil(segs(ball_diam/2)*ball_arc/2/360));
 n=10;
@@ -20,14 +23,16 @@ screw_channel_len = 22;
 screw_length = screw_channel_len - snap_collar_length;
 neck_collar_len = 5;
 
-snap_collar_diam = 7.5;
+snap_collar_diam = 6;
 thumb_knob_size = [15,7.5, 10];
 screw_tip_length = 3;
 
-neck_diam = 4.5;
+neck_diam = 4.75;
 neck_length = neck_collar_len + 0.5;
+assert(neck_diam < snap_collar_diam);
+assert(snap_collar_diam > inner_diam_threads);
 
-discvice_logo_diam = 15;
+discvice_logo_diam = 14;
 
 // linkage arm
 linkage_arm_width = 5;
@@ -42,7 +47,7 @@ screw_peg_thread_major=7;
 // screw flattening
 // flat_dist_from_center = 1.92;
 // flat_dist_from_center = 1.75;
-flat_dist_from_center = 2.2;
+flat_dist_from_center = 2.35;
 
 // rotate screw so that it doesnt float
 screw_rotation = 65;
@@ -52,12 +57,12 @@ joint_outer_diam = 10;
 overall_thickness = 7;
 
 // collar_fudge = 0.3;
-collar_fudge=0.3;
+collar_fudge=0.4;
 
-carriage_slop = 0.3;
+carriage_slop = 0.31;
 
 // need to make sure the neck and tip dont fall out of the flat
-main_body_tip_hole_diam = inner_diam_threads+collar_fudge;
+main_body_tip_hole_diam = screw_tip_diam+collar_fudge;
 main_body_tip_hole_r = main_body_tip_hole_diam/2;
 main_body_collar_hole_diam = neck_diam+collar_fudge;
 // tip calculations
@@ -115,3 +120,5 @@ carriage_screw_peg_center_displacement = [
     -(carriage_size[1]/2 + 1 + joint_outer_diam/2),
     0
 ];
+
+version_string = "V3.0";

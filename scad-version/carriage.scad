@@ -9,7 +9,6 @@ $fn=30;
 
 
 internal_screw_rotation = 205;
-$slop=carriage_slop;
 
 module make_carriage(anchor=CENTER, spin=0, orient=UP) {
     anchor_list = [
@@ -46,11 +45,18 @@ module make_carriage(anchor=CENTER, spin=0, orient=UP) {
                 position(LEFT+BOTTOM)
                 up(flat_dist_from_center)
                 left(pitch)
-                make_internal_threads(l=carriage_size[0]-snap_collar_length+10, spin=internal_screw_rotation, anchor=TOP, orient=LEFT);
+                make_internal_threads(l=carriage_size[0]-snap_collar_length+10, spin=internal_screw_rotation, anchor=TOP, orient=LEFT, $slop=carriage_slop);
                 // remove a smidge on top for clearance
                 tag("remove")
                 position(BACK)
                 cube([carriage_size[0], 0.15, overall_thickness+1], anchor=BACK);
+                
+                // version number
+                tag("remove")
+                position(TOP+LEFT)
+                fwd(2.5)
+                right(0.2)
+                text3d(version_string, h=0.5, size=5, anchor=TOP+LEFT);
             }
             
         }
