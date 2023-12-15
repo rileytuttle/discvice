@@ -70,7 +70,6 @@ module screw_peg(anchor=CENTER, spin=0, orient=UP) {
 module screw_peg_pocket(major_d, pitch, anchor=CENTER, spin=0, orient=UP) {
     $slop=0;
     attachable(anchor=anchor, spin=spin, orient=orient) {
-        joint_thickness = overall_thickness - 2*2;
         cyl(d=joint_outer_diam+0.1, l=joint_thickness) {
             up(joint_thickness/2)
                 generic_threaded_rod(d=screw_peg_thread_major, l=2, anchor=BOTTOM, spin=thread_rotate, pitch=screw_peg_thread_pitch, profile=screw_peg_thread_profile(), internal=true);

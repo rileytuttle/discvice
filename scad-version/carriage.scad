@@ -3,8 +3,6 @@ include <common-dims.scad>
 use <tightening-screw.scad>
 use <screw-peg.scad>
 
-joint_offset = 1;
-
 $fn=30;
 
 
@@ -22,10 +20,10 @@ module make_carriage(anchor=CENTER, spin=0, orient=UP) {
             cube(carriage_size, anchor=CENTER) {
                 // connector piece
                 position(RIGHT+FRONT)
-                cube([joint_outer_diam, (joint_outer_diam/2+joint_offset) - (linkage_arm_width/2), carriage_size[2]], anchor=BACK+RIGHT);
+                cube([joint_outer_diam, (joint_outer_diam/2+carriage_joint_offset) - (linkage_arm_width/2), carriage_size[2]], anchor=BACK+RIGHT);
                 // joint outer meat
                 position(RIGHT+FRONT)
-                fwd(joint_offset+joint_outer_diam/2)
+                fwd(carriage_joint_offset+joint_outer_diam/2)
                 cyl(d=joint_outer_diam, l=carriage_size[2], anchor=RIGHT) {
                     position(CENTER)
                     cube([joint_outer_diam/2, joint_outer_diam/2, carriage_size[2]], anchor=FRONT+LEFT);
