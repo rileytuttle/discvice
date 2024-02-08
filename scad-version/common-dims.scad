@@ -1,5 +1,6 @@
 
-material = "pla";
+// material = "pla";
+material = "petg";
 static=true;
 
 // screw dims

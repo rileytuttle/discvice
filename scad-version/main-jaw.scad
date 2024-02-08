@@ -119,12 +119,17 @@ module main_jaw(anchor=CENTER, spin=0, orient=UP, static=false, spare_linkage=fa
                     fwd(1.5)
                     rotate(45)
                     {
+                        // the pocket
                         down(0.1) 
                         force_tag("remove")
                         linkage_arm(linkage_arm_length2, linkage_arm_hole_diam-0.5, linkage_arm_joint_diam+0.3, linkage_arm_thickness+0.5, linkage_arm_width+0.3, anchor=BOTTOM);
+                        // the linkage arm
                         tag("keep")
                         up(0.1)
-                        linkage_arm(linkage_arm_length2, linkage_arm_hole_diam, linkage_arm_joint_diam, linkage_arm_thickness, linkage_arm_width, anchor=BOTTOM);
+                        linkage_arm(linkage_arm_length2, linkage_arm_hole_diam, linkage_arm_joint_diam, linkage_arm_thickness, linkage_arm_width, anchor=BOTTOM) {
+                            position(BOTTOM)
+                            cyl(d=2.5, l=overall_thickness/2, anchor=BOTTOM);
+                        }
                     }
                 }
             }

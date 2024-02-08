@@ -65,31 +65,35 @@ echo(str("angle of linkage arm relative to lever arm = ", lever_arm_abs_angle - 
 
 partial_assem = false;
 
-main_jaw(static=static, spare_linkage=true) {
-    if (!static) {
-        position("neck-collar")
-        make_screw(anchor="neck-center", spin=-90, orient=LEFT)
-            up(carriage_fudge_x)
-            position("collar-center")
-            make_carriage(anchor="collar-center", orient=BACK, spin=90);
+module frisbee_vice() {
+    main_jaw(static=static, spare_linkage=true) {
+        if (!static) {
+            position("neck-collar")
+            make_screw(anchor="neck-center", spin=-90, orient=LEFT)
+                up(carriage_fudge_x)
+                position("collar-center")
+                make_carriage(anchor="collar-center", orient=BACK, spin=90);
+        }
+        if (!partial_assem) {
+            position("screw-peg-center")
+            lower_jaw(spin=lower_jaw_angle) {
+                position("screw-peg-center")
+                lever_arm(anchor="arm-hole-center", spin=lever_arm_angle);
+            }
+        }
     }
     if (!partial_assem) {
-        position("screw-peg-center")
-        lower_jaw(spin=lower_jaw_angle) {
-            position("screw-peg-center")
-            lever_arm(anchor="arm-hole-center", spin=lever_arm_angle);
+        translate(abs_lever_arm_joint_displacement) {
+        linkage_arm(
+            linkage_arm_length,
+            linkage_arm_hole_diam,
+            linkage_arm_joint_diam,
+            linkage_arm_thickness,
+            linkage_arm_width,
+            anchor="left-hole", spin=abs_angle_of_linkage_arm
+            );
         }
     }
 }
-if (!partial_assem) {
-    translate(abs_lever_arm_joint_displacement) {
-    linkage_arm(
-        linkage_arm_length,
-        linkage_arm_hole_diam,
-        linkage_arm_joint_diam,
-        linkage_arm_thickness,
-        linkage_arm_width,
-        anchor="left-hole", spin=abs_angle_of_linkage_arm
-        );
-    }
-}
+
+frisbee_vice();
