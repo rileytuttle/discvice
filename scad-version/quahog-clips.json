@@ -1,0 +1,87 @@
+{
+    "parameterSets": {
+        "Garret": {
+            "$fn": "50",
+            "everything_else": "false",
+            "name": "Garret",
+            "name_placement": "[-34.5, -5]",
+            "name_rotation": "90",
+            "name_size": "5"
+        },
+        "love": {
+            "$fn": "50",
+            "boolbrother": "true",
+            "everything_else": "true",
+            "name": "Love",
+            "name_placement": "[-34.3, -4]",
+            "name_rotation": "90",
+            "name_size": "6"
+        },
+        "Jason": {
+            "$fn": "50",
+            "boolbrother": "false",
+            "everything_else": "false",
+            "name": "Jason",
+            "name_placement": "[-34.5, -4]",
+            "name_rotation": "90",
+            "name_size": "5.5"
+        },
+        "liz": {
+            "$fn": "50",
+            "boolbrother": "false",
+            "everything_else": "false",
+            "name": "Glizzy",
+            "name_placement": "[-34.5, -4]",
+            "name_rotation": "90",
+            "name_size": "5.5"
+        },
+        "xiulie": {
+            "$fn": "50",
+            "boolbrother": "false",
+            "everything_else": "false",
+            "name": "Xiulie",
+            "name_placement": "[-34.5, -4]",
+            "name_rotation": "90",
+            "name_size": "5.5"
+        },
+        "Lucy": {
+            "$fn": "50",
+            "boolbrother": "false",
+            "everything_else": "true",
+            "name": "Lucy",
+            "name_placement": "[-34.5, -4]",
+            "name_rotation": "90",
+            "name_size": "5.5"
+        },
+        "Bill": {
+            "$fn": "50",
+            "boolbrother": "false",
+            "everything_else": "true",
+            "name": "Bill",
+            "name_placement": "[-34, -4]",
+            "name_rotation": "90",
+            "name_size": "5.75"
+        },
+        "Garrett": {
+            "$fn": "50",
+            "boolbrother": "false",
+            "everything_else": "false",
+            "name": "Garrett",
+            "name_placement": "[-34.3, -5]",
+            "name_rotation": "90",
+            "name_size": "5.5"
+        },
+        "wheels": {
+            "$fn": "50",
+            "boolbrother": "false",
+            "everything_else": "false",
+            "name": "Wheels",
+            "name_placement": "[-34, -4]",
+            "name_rotation": "90",
+            "name_size": "5.75"
+        }
+    },
+    "fileFormatVersion": "1",
+    "parameterSets": "",
+    "parameterSets": ""
+}

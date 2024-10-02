@@ -4,7 +4,7 @@ use <screw-peg.scad>
 
 $fn=30;
 
-module lever_arm(anchor=CENTER, spin=0, orient=UP) {
+module lever_arm(machine_screw=true, anchor=CENTER, spin=0, orient=UP, overall_thickness=7) {
     arm_hole_displacement = [-lever_arm_main_body_length, 0, 0];
     peg_displacement = [0, 0, 0];
     fill_length = joint_outer_diam + 1 - linkage_arm_joint_diam + 1.5;
@@ -47,7 +47,14 @@ module lever_arm(anchor=CENTER, spin=0, orient=UP) {
                     }
                 }
             }
-            screw_peg_pocket();
+            if (machine_screw)
+            {
+                machine_screw_pocket(add_supports=socket_supports, overall_thickness=overall_thickness);
+            }
+            else
+            {
+                screw_peg_pocket();
+            }
         }
         children();
     }

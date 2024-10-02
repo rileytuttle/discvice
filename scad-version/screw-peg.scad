@@ -1,6 +1,7 @@
 include <BOSL2/std.scad>
 include <BOSL2/threading.scad>
 include <common-dims.scad>
+include <BOSL2/screws.scad>
 
 $fn=30;
 
@@ -79,7 +80,30 @@ module screw_peg_pocket(major_d, pitch, anchor=CENTER, spin=0, orient=UP) {
     }
 }
 
+module machine_screw_pocket(anchor=CENTER, spin=0, orient=UP, add_supports=false, overall_thickness=7)
+{
+    default_tag("remove")
+    attachable(anchor=anchor, spin=spin, orient=orient) {
+        // tag_scope("screw-pocket")
+        // diff() {
+            cyl(d=joint_outer_diam+0.1, l=joint_thickness+0.1) {
+                screw_hole("M3x0.5", head="flat", thread=true, l=overall_thickness);
+                position(TOP)
+                cyl(d=3.5, l=1, anchor=BOTTOM);
+            // }
+            // if (add_supports) {
+            //     zrot_copies(n=9)
+            //     difference() {
+            //         pie_slice(ang=7, r=joint_outer_diam/2, l=joint_thickness+0.1, anchor=CENTER);
+            //         cyl(d=3.5, l=carriage_size[2]);
+            //     }
+            // }
+        }
+        children();
+    }
+}
 
 // stroke(screw_peg_thread_profile(), width =0.01);
-screw_peg();
+// screw_peg();
 // screw_peg_pocket();
+machine_screw_pocket();

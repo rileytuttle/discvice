@@ -3,8 +3,10 @@
 material = "petg";
 static=true;
 
-// screw dims
 
+machine_screw = true;
+
+// screw dims
 ball_arc = 180;
 small_ball_diam = 1;
 big_ball_diam = small_ball_diam * 1.5;
@@ -41,8 +43,7 @@ discvice_logo_diam = 15;
 
 // linkage arm
 linkage_arm_width = 5;
-linkage_arm_thickness = 2.6;
-linkage_arm_hole_diam = 4.75;
+linkage_arm_hole_diam = machine_screw ? 3.5 : 4.75;
 linkage_arm_length = static ? 13.5 : 15;
 linkage_arm_length2 = 14;
 linkage_arm_joint_diam = 8.5;
@@ -59,9 +60,10 @@ flat_dist_from_center = 2.35;
 screw_rotation = 65;
 
 joint_outer_diam = 10;
-overall_thickness = 7;
-joint_wall = 2;
+overall_thickness = 8;
+joint_wall = 2.25;
 joint_thickness = overall_thickness - joint_wall*2;
+linkage_arm_thickness = overall_thickness-joint_wall*2 - 0.4;
 
 // collar_fudge = 0.3;
 collar_fudge=0.4;
@@ -128,10 +130,12 @@ carriage_screw_peg_center_displacement = [
     0
 ];
 
-version_string = static ? "M4.0" : "V4.0";
+version_string = "V5.0";
 
 carriage_joint_offset = 1;
 
 right_side_main_body_len = static ? 22 : screw_channel_len+screw_channel_offset+neck_collar_len;
 main_jaw_screw_peg_2_displacement = [right_side_main_body_len-joint_outer_diam/2, -(main_jaw_body_height+carriage_joint_offset+joint_outer_diam/2), 0];
 lower_jaw_angle = -10;
+
+socket_supports = false;
