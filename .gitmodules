@@ -1,0 +1,3 @@
+[submodule "openscad-library-manager"]
+	path = openscad-library-manager
+	url = https://github.com/rileytuttle/openscad-library-manager.git
