@@ -1,7 +1,7 @@
 
-//      This frisbee vice library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This may not be used for commericial purposes without consulting the original writer.
+//      This disc vice library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This may not be used for commericial purposes without consulting the original writer.
 
-//     This frisbee vice library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+//     This disc vice library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 //     You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
 
@@ -17,6 +17,7 @@ module main_body(
     joint_spec,
     linkage_arm_spec,
     logo_spec,
+    screw_spec,
     anchor=CENTER, spin=0, orient=UP)
 {
     joint_outer_diam = struct_val(joint_spec, "outer_diam");
@@ -49,7 +50,7 @@ module main_body(
                         cube([joint_outer_diam+0.1, linkage_arm_width/2, joint_thickness+0.1], anchor=CENTER);
                     }
                     force_tag("remove")
-                    machine_screw_pocket(joint_outer_diam, joint_thickness, overall_thickness);
+                    position(TOP) machine_screw_pocket(joint_spec, screw_spec, anchor=TOP);
                 }
                 // left side main
                 position(LEFT)
@@ -73,9 +74,10 @@ module main_body(
                 right(screw1_disp[0])
                 cyl(d=joint_outer_diam, l=overall_thickness) {
                     force_tag("remove")
-                    machine_screw_pocket(joint_outer_diam, joint_thickness, overall_thickness);
+                    position(TOP) machine_screw_pocket(joint_spec, screw_spec, anchor=TOP);
                 }
-                
+
+                // logo
                 force_tag("remove")
                 position(LEFT+BACK+TOP)
                 left(6.75)
@@ -88,9 +90,14 @@ module main_body(
                 tag("remove")
                 position(TOP+LEFT)
                 right(0.8)
-                back(1.75)
-                up(0.01)
-                text3d("iscv", h=0.5, size=7, anchor=TOP+LEFT);
+                back(1)
+                up(0.01) {
+                    size = 8;
+                    anchor = TOP+LEFT;
+                    h = 0.5;
+                    right(0.75) text3d("isc", h=h, size=size, anchor=anchor, spacing=1);
+                    fwd(9) text3d("vice", h=h, size=size, anchor=anchor, spacing=1);
+                }
             }
         }
         children();

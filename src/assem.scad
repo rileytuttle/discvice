@@ -1,6 +1,6 @@
-//      This frisbee vice library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This may not be used for commericial purposes without consulting the original writer.
+//      This disc vice library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This may not be used for commericial purposes without consulting the original writer.
 
-//     This frisbee vice library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+//     This disc vice library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 //     You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
 
@@ -9,9 +9,22 @@ use <linkage.scad>
 use <screws.scad>
 use <main-body.scad>
 use <lower-jaw.scad>
+use <lever-arm.scad>
+include <assembly-calculations.scad>
 
 $fn=50;
-overall_thickness = 8;
+
+/* [screw settings] */
+// If this works you should be able to set to whatever type of screw you have lying around (that's close in size) but I have only tested M3x0.5x8mm flat (or countersink) head
+screw_type = "M3x0.5";
+screw_head = "flat"; // ["flat", "socket"];
+screw_length = 8;
+screw_spec = struct_set([], [
+    "type", screw_type,
+    "head", screw_head,
+    "length", screw_length]);
+
+overall_thickness = screw_length;
 
 /* [joint settings] */
 joint_wall = 2.25;
@@ -62,7 +75,25 @@ logo_spec = struct_set([], [
 /* [lower jaw settings] */    
 lower_jaw_joint_displacement = [1, -13, 0];
 lower_jaw_spec = struct_set([], [
+    "overall_thickness", overall_thickness,
     "joint_disp", lower_jaw_joint_displacement]);
+    
+/* [lever arm settings] */
+lever_arm_main_body_length = 15;
+lever_arm_spec = struct_set([], [
+    "main body length", lever_arm_main_body_length]);
+    
+/* [assembly specific settings] */
+lower_jaw_angle = -10;
+spins = calculate_spins(
+    lower_jaw_angle,
+    lower_jaw_spec,
+    joint_spec,
+    carriage_spec,
+    linkage_arm_spec,
+    lever_arm_spec);
+echo(str("lever arm abs spin: ", spins[0]));
+echo(str("linkage arm abs spin: ", spins[1])); 
 
 module assem()
 {
@@ -70,9 +101,29 @@ module assem()
               carriage_spec=carriage_spec,
               joint_spec=joint_spec,
               linkage_arm_spec=linkage_arm_spec,
-              logo_spec=logo_spec)
-        position("screw1-center") lower_jaw(anchor="screw1-center");
-    // linkage_arm(linkage_arm_spec);
+              logo_spec=logo_spec,
+              screw_spec=screw_spec)
+        position("screw1-center")
+        lower_jaw(
+            lower_jaw_spec,
+            joint_spec,
+            linkage_arm_spec,
+            screw_spec,
+            anchor="screw1-center",
+            spin=lower_jaw_angle)
+            position("screw2-center")
+            lever_arm(
+                lever_arm_spec=lever_arm_spec,
+                linkage_spec=linkage_arm_spec,
+                joint_spec=joint_spec,
+                screw_spec=screw_spec,
+                spin=spins[0],
+                anchor="arm-hole-center")
+                    position("screw-center")
+                    linkage_arm(
+                        linkage_arm_spec,
+                        spin=spins[1],
+                        anchor="left-hole");
 }
 
 assem();

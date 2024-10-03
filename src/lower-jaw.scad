@@ -1,6 +1,6 @@
-//      This frisbee vice library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This may not be used for commericial purposes without consulting the original writer.
+//      This disc vice library is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This may not be used for commericial purposes without consulting the original writer.
 
-//     This frisbee vice library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+//     This disc vice library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 //     You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
 
@@ -13,9 +13,17 @@ module lower_jaw(
     lower_jaw_spec,
     joint_spec,
     linkage_spec,
+    screw_spec,
     anchor=CENTER, spin=0, orient=UP) {
+    lower_jaw_joint_displacement = struct_val(lower_jaw_spec, "joint_disp");
+    linkage_arm_thickness = struct_val(linkage_spec, "thickness");
+    linkage_arm_joint_diam = struct_val(linkage_spec, "joint diam");
+    overall_thickness = struct_val(lower_jaw_spec, "overall_thickness");
+    joint_outer_diam = struct_val(joint_spec, "outer_diam");
+    linkage_arm_hole_diam = struct_val(linkage_spec, "hole diam");
     anchor_list = [
-        named_anchor("screw1-center", lower_jaw_joint_displacement),
+        named_anchor("screw1-center", [0, 0, 0]),
+        named_anchor("screw2-center", lower_jaw_joint_displacement),
     ];
     attachable(anchor=anchor, spin=spin, orient=orient, anchors=anchor_list) {
         xrot(180)
@@ -28,14 +36,7 @@ module lower_jaw(
                 // translate(joint_displacement)
                 cyl(d=joint_outer_diam, l=overall_thickness)
                     force_tag("remove")
-                    if (machine_screw)
-                    {
-                        machine_screw_pocket(orient=DOWN);
-                    }
-                    else
-                    {
-                        screw_peg_pocket(orient=DOWN);
-                    }
+                    position(BOTTOM) machine_screw_pocket(joint_spec, screw_spec, anchor=TOP, orient=DOWN);
                 // linkage arm
                 cube([8, 8, linkage_arm_thickness], anchor=FRONT) {
                     position(BACK+RIGHT)
