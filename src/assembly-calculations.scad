@@ -5,6 +5,7 @@
 include <rosetta-stone/std.scad>
 
 // this is probably definitely a long stupid way of calculating but I don't feel like re-figuring it out/simplifying
+// this part really makes me miss having a constraint solver from more traditional 3d modellers
 function calculate_spins(
     lower_jaw_angle,
     lower_jaw_spec,

@@ -84,6 +84,12 @@ lever_arm_spec = struct_set([], [
     "main body length", lever_arm_main_body_length]);
     
 /* [assembly specific settings] */
+// check off the part you want to show. check them all off for assembly. if you have check more than 1 but not all it will only show the first one checked off.
+show_main_body = true;
+show_lower_jaw = true;
+show_lever_arm = true;
+show_linkage = true;
+// angle of jaw relative to the main body. should recalculate so that the assembly always stays in place
 lower_jaw_angle = -10;
 spins = calculate_spins(
     lower_jaw_angle,
@@ -93,7 +99,40 @@ spins = calculate_spins(
     linkage_arm_spec,
     lever_arm_spec);
 echo(str("lever arm abs spin: ", spins[0]));
-echo(str("linkage arm abs spin: ", spins[1])); 
+echo(str("linkage arm abs spin: ", spins[1]));
+
+module just_main_body()
+{
+    main_body(main_body_spec=main_body_spec,
+              carriage_spec=carriage_spec,
+              joint_spec=joint_spec,
+              linkage_arm_spec=linkage_arm_spec,
+              logo_spec=logo_spec,
+              screw_spec=screw_spec);
+}
+
+module just_linkage()
+{
+    linkage_arm(linkage_arm_spec);
+}
+
+module just_lower_jaw()
+{
+    lower_jaw(
+        lower_jaw_spec,
+        joint_spec,
+        linkage_arm_spec,
+        screw_spec);
+}
+
+module just_lever_arm()
+{
+    lever_arm(
+        lever_arm_spec=lever_arm_spec,
+        linkage_spec=linkage_arm_spec,
+        joint_spec=joint_spec,
+        screw_spec=screw_spec);
+}
 
 module assem()
 {
@@ -126,4 +165,8 @@ module assem()
                         anchor="left-hole");
 }
 
-assem();
+if (show_main_body && show_lever_arm && show_lower_jaw && show_linkage) assem();
+else if (show_main_body) just_main_body();
+else if (show_lower_jaw) just_lower_jaw();
+else if (show_lever_arm) just_lever_arm();
+else if (show_linkage) just_linkage();

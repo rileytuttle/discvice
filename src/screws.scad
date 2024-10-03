@@ -21,7 +21,7 @@ module machine_screw_pocket(
     screw_head = struct_val(screw_spec, "head");
     attachable(size=[joint_outer_diam, joint_outer_diam, overall_thickness], anchor=anchor, spin=spin, orient=orient) {
             cyl(d=joint_outer_diam+0.1, l=joint_thickness+0.1) {
-                screw_hole(screw_type, head=screw_head, thread=true, l=overall_thickness);
+                screw_hole(screw_type, head=screw_head, thread=true, l=overall_thickness+0.1);
                 position(TOP)
                 cyl(d=3.5, l=1, anchor=BOTTOM);
         }
