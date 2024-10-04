@@ -1,6 +1,7 @@
 The Discvice
 
 This library is used to generate a vice-grip like clip for clipping onto Discraft Ultrastar type discs
+see printables listing for more info/pics/videos https://www.printables.com/model/1027053-discvice-frisbee-clip
 
 to use it you should open up the src/assem.scad file in openscad. Then you can customize from there
 
