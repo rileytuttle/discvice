@@ -7,6 +7,7 @@ use <lever-arm.scad>
 include <assembly-calculations.scad>
 
 $fn=50;
+layer_height = 0.2; // .01
 
 /* [screw settings] */
 // If this works you should be able to set to whatever type of screw you have lying around (that's close in size) but I have only tested M3x0.5x8mm flat (or countersink) head
@@ -37,7 +38,7 @@ linkage_arm_hole_diam = 3.5;
 linkage_arm_length = 13.5;
 // joint diam
 linkage_arm_joint_diam = 8.5; 
-linkage_arm_thickness = overall_thickness-joint_wall*2 - 0.4;
+linkage_arm_thickness = overall_thickness-joint_wall*2 - layer_height*2;
 linkage_arm_spec = struct_set([], [
     "width", linkage_arm_width,
     "hole diam", linkage_arm_hole_diam,
