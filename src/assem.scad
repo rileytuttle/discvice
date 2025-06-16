@@ -160,8 +160,61 @@ module assem()
                         anchor="left-hole");
 }
 
-if (show_main_body && show_lever_arm && show_lower_jaw && show_linkage) assem();
-else if (show_main_body) just_main_body();
-else if (show_lower_jaw) just_lower_jaw();
-else if (show_lever_arm) just_lever_arm();
-else if (show_linkage) just_linkage();
+module stock_assem()
+{
+    if (show_main_body && show_lever_arm && show_lower_jaw && show_linkage) assem();
+    else if (show_main_body) just_main_body();
+    else if (show_lower_jaw) just_lower_jaw();
+    else if (show_lever_arm) just_lever_arm();
+    else if (show_linkage) just_linkage();
+}
+
+slots = [
+    [[-26,-20], 0],
+    [[12, -7], 45]
+];
+module spine() {
+    linear_extrude(joint_thickness)
+    projection(cut=true)
+    difference() {
+        stock_assem();
+        for (slot = slots)
+        {
+            translate(slot[0])
+            zrot(slot[1]) yrot(-90) cuboid([overall_thickness, 7.5, 2.5], rounding=2.5/2, edges=[TOP+FRONT, BOTTOM+FRONT, TOP+BACK, BOTTOM+BACK], teardrop=true);
+        }
+    }
+}
+
+module spine_top() {
+    difference() {
+        top_half()
+        down(overall_thickness/2) up(joint_wall) stock_assem();
+        for (slot = slots)
+        {
+            translate(slot[0])
+            zrot(slot[1]) yrot(-90) cuboid([overall_thickness, 7.5, 2.5], rounding=2.5/2, edges=[TOP+FRONT, BOTTOM+FRONT, TOP+BACK, BOTTOM+BACK], teardrop=true);
+        }
+    }
+}
+
+module spine_bottom() {
+    difference() {
+        bottom_half()
+        up(overall_thickness/2) down(joint_wall) stock_assem();
+        for (slot = slots)
+        {
+            translate(slot[0])
+            zrot(slot[1]) yrot(-90) cuboid([overall_thickness, 7.5, 2.5], rounding=2.5/2, edges=[TOP+FRONT, BOTTOM+FRONT, TOP+BACK, BOTTOM+BACK], teardrop=true);
+        }
+    }
+}
+
+module peg() {
+    cuboid([overall_thickness, 7, 2], rounding=2/2, edges=[TOP+FRONT, BOTTOM+FRONT, TOP+BACK, BOTTOM+BACK], teardrop=true);
+}
+
+// spine_top();
+// spine_bottom();
+// spine();
+peg();
