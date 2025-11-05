@@ -35,7 +35,7 @@ linkage_arm_width = 5;
 // arm hole diam
 linkage_arm_hole_diam = 3.5;
 // arm length
-linkage_arm_length = 13.5;
+linkage_arm_length = 12.75;
 // joint diam
 linkage_arm_joint_diam = 8.5; 
 linkage_arm_thickness = overall_thickness-joint_wall*2 - layer_height*2;
